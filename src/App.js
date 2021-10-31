@@ -36,14 +36,10 @@ function App() {
             <Route path="/login">
               <Login></Login>
             </Route>
-
-
             {/* ============Private Route============  */}
             <PrivateRoute path="/purchase/:Id">
               <Purchase></Purchase>
             </PrivateRoute>
-
-
             {/* ========404 page=========== */}
             <Route path="*">
               <PageError></PageError>

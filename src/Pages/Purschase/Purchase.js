@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useHistory, useLocation, useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import useAuth from '../../Hooks/useAuth';
+import Loading from '../Loading/Loading';
 
 const Purchase = () => {
     const { user } = useAuth();
@@ -31,12 +32,12 @@ const Purchase = () => {
 
         const newOder = { service, des, price, img, name, email, phone, address }
         console.log(newOder)
-        fetch('http://localhost:5000/order', {
+        fetch('https://young-sands-62783.herokuapp.com/order', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
             },
-            body: JSON.stringify(newOder)
+            body: JSON.stringify({ ...newOder, status: 'Pending' })
 
         })
             .then(res => res.json())
@@ -54,12 +55,19 @@ const Purchase = () => {
 
     const { Id } = useParams()
     const [service, setService] = useState({});
+    const [loading, setLoading] = useState(true)
     useEffect(() => {
-        fetch(`http://localhost:5000/services/${Id}`)
+        fetch(`https://young-sands-62783.herokuapp.com/services/${Id}`)
             .then(res => res.json())
-            .then(data => setService(data))
+            .then(data => {
+                setService(data)
+                setLoading(false)
+            })
 
     }, []);
+    if (loading) {
+        return <Loading></Loading>
+    }
     return (
         <div >
             <h1 className="pt-5 text-center"> Review Your Service Details</h1>
@@ -81,8 +89,8 @@ const Purchase = () => {
                         <input type="text" defaultValue={service?.img} ref={imgRef} />
                         <input type="text" defaultValue={user?.displayName} ref={nameRef} />
                         <input type="text" defaultValue={user?.email} ref={emailRef} />
-                        <input type="number" ref={phoneRef} placeholder="phone Nubmer" />
-                        <textarea type="text" ref={addressRef} placeholder="Type your vlid address" />
+                        <input type="number" ref={phoneRef} placeholder="phone Number" required />
+                        <textarea type="text" required ref={addressRef} placeholder="Type your valid address" />
                         <input type="submit" value="submit" />
                     </form>
 

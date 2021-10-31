@@ -1,21 +1,26 @@
 import React, { useState } from 'react';
 import useAuth from '../../Hooks/useAuth';
+import Loading from '../Loading/Loading';
 
 const MyOrder = () => {
     const { user } = useAuth()
     const [myOder, setMyOrder] = useState([]);
+    const [loading, setLoading] = useState(true)
 
     useState(() => {
-        fetch(`http://localhost:5000/myOrder/${user?.email}`)
+        fetch(`https://young-sands-62783.herokuapp.com/myOrder/${user?.email}`)
             .then(res => res.json())
-            .then(data => setMyOrder(data))
+            .then(data => {
+                setMyOrder(data)
+                setLoading(false)
+            })
     }, [])
     console.log(myOder)
 
     const hanldeOrderDelete = id => {
         const process = window.confirm('Are you want to cancel Your Order?')
         if (process) {
-            const url = `http://localhost:5000/myOrder/${id}`
+            const url = `https://young-sands-62783.herokuapp.com/myOrder/${id}`
             fetch(url, {
                 method: 'DELETE',
             })
@@ -31,6 +36,9 @@ const MyOrder = () => {
 
         }
     }
+    if (loading) {
+        return <Loading></Loading>
+    }
 
     return (
         <div className="container-fluid">
@@ -44,6 +52,7 @@ const MyOrder = () => {
                             <img src={order.img} className="card-img-top" alt="..."></img>
                             <div className="card-body">
                                 <h5 className="card-title">{order.service}</h5>
+                                <h5 className="card-title">{order.status}</h5>
                                 <p className="card-text">price: ${order.price}</p>
                                 <p className="card-text">{order.des.slice(0, 150)}</p>
                                 <button onClick={() => hanldeOrderDelete(order._id)} className="btn btn-danger">Cancel</button>

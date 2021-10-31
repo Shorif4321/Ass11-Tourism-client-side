@@ -1,21 +1,29 @@
 import React, { useState, useEffect } from 'react';
+import Loading from '../Loading/Loading';
 
 const MagnageOrder = () => {
     const [manageOrder, setManageOrder] = useState([])
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        fetch('http://localhost:5000/manage')
+        fetch('https://young-sands-62783.herokuapp.com/manage')
             .then(res => res.json())
-            .then(data => setManageOrder(data));
-
+            .then(data => {
+                setManageOrder(data)
+                setLoading(false)
+            });
 
     }, [])
 
+    //Update Loading
+    const handleUpdate = id => {
+
+    }
     //console.log(manageOrder)
-    const hanldManageDelete = id => {
+    const handleManageDelete = id => {
         const process = window.confirm('Are you want to DELETE?')
         if (process) {
-            const url = `http://localhost:5000/manage/${id}`
+            const url = `https://young-sands-62783.herokuapp.com/manage/${id}`
             fetch(url, {
                 method: 'DELETE',
             })
@@ -31,6 +39,9 @@ const MagnageOrder = () => {
         }
 
     }
+    if (loading) {
+        return <Loading></Loading>
+    }
     return (
         <div className="container-fluid">
             <h2 className="text-center py-5">Total Order is Running {manageOrder.length}</h2>
@@ -42,10 +53,11 @@ const MagnageOrder = () => {
                         <img src={order.img} className="card-img-top" alt="..."></img>
                         <div className="card-body">
                             <h5 className="card-title">{order.service}</h5>
+                            <h5 className="card-title">{order.status}</h5>
                             <p className="card-text">price: ${order.price}</p>
                             <p className="card-text">{order.des.slice(0, 150)}</p>
-                            <button className="btn btn-primary mx-2">Aprove</button>
-                            <button onClick={() => hanldManageDelete(order._id)} className="btn btn-danger">Delete</button>
+                            <button onClick={() => handleUpdate(order._id)} className="btn btn-primary mx-2">Aprove</button>
+                            <button onClick={() => handleManageDelete(order._id)} className="btn btn-danger">Delete</button>
                         </div>
                     </div>
                 </div>)
