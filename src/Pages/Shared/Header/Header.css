@@ -7,7 +7,7 @@
     text-decoration: none;
     margin: 5px;
     padding: 5px;
-    line-height: 70px;
+    line-height: 40px;
     font-family: sans-serif;
     }
     .link-style:hover{
@@ -22,8 +22,8 @@
     .login-2{
         border-radius: 30px;
         padding: 5px 10px;
-        background-color: rgb(241, 30, 2);
-        color: black;
+        background-color: rgb(252, 255, 253);
+        color:black;
     }
     .login:hover{
         background-color:rgb(251, 255, 0);
@@ -38,4 +38,9 @@
     .buttonAll:hover{
         background-color: rgb(0, 255, 85);
         color: black;
+    }
+    .userImg{
+        height: 40px;
+        width: 40ox;
+        border-radius: 50%;
     }

@@ -19,11 +19,13 @@ const Header = () => {
                             {user?.email ? <NavLink className="link-style live" to="/myOrder">My Orders</NavLink> : <> </>}
                             {user?.email ? <NavLink className="link-style live" to="/addService">Add Service</NavLink> : <> </>}
                             {user?.email ? <NavLink className="link-style live" to="/magnageOrder"> Manage Order</NavLink> : <> </>}
+
+                            {user?.email ? <small className="text-white mx-2" >{user.displayName}  <img className="userImg" src={user.photoURL} /> </small> : <small></small>}
+
                             {user?.email ? <NavLink
                                 onClick={logOut} className="link-style login-2" to="/login">Log out</NavLink> :
                                 <NavLink className="link-style login" to="/login">Login</NavLink>
                             }
-                            {user?.email ? <small className="text-white" > <i className="fas fa-user text-info"></i> {user.displayName} </small> : <small></small>}
                         </nav>
                     </Navbar.Collapse>
                 </Container>

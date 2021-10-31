@@ -49,12 +49,12 @@ const MyOrder = () => {
                         className="col">
                         <div className="card h-100">
                             <img src={order.img} className="card-img-top" alt="..."></img>
-                            <div className="card-body">
-                                <h5 className="card-title">{order.service}</h5>
-                                <h5 className="card-title">{order.status}</h5>
-                                <p className="card-text">price: ${order.price}</p>
-                                <p className="card-text">{order.des.slice(0, 150)}</p>
-                                <button onClick={() => hanldeOrderDelete(order._id)} className="btn btn-danger">Cancel</button>
+                            <div className="card-body text-center">
+                                <h3 className="card-title text-start">{order.service}</h3>
+                                <h6 className="card-title text-start">Status: {order.status}</h6>
+                                <p className="card-text text-start">Price: ${order.price}</p>
+                                <p className="card-text text-start">{order.des.slice(0, 150)}</p>
+                                <button onClick={() => hanldeOrderDelete(order._id)} className="btn btn-danger my-3">Cancel</button>
                             </div>
                         </div>
                     </div>)

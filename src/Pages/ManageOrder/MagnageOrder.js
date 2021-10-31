@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory, useLocation } from 'react-router';
 import Loading from '../Loading/Loading';
 
 const MagnageOrder = () => {
+    const history = useHistory();
+    const location = useLocation();
+    const redirect_Uri = location.state?.from || '/myOrder';
+
     const [manageOrder, setManageOrder] = useState([])
     const [loading, setLoading] = useState(true)
 
@@ -28,8 +33,9 @@ const MagnageOrder = () => {
             .then(res => res.json())
             .then(data => {
                 if (data.modifiedCount > 0) {
-                    alert('Your order is Approve successfully')
-                    window.history.go('0')
+                    alert('Successfully Approved')
+                    history.push(redirect_Uri)
+                    //window.history.go('0')
                 }
             })
     }
@@ -67,13 +73,13 @@ const MagnageOrder = () => {
                     className="col">
                     <div className="card h-100">
                         <img src={order.img} className="card-img-top" alt="..."></img>
-                        <div className="card-body">
-                            <h5 className="card-title">{order.service}</h5>
-                            <h5 className="card-title">{order.status}</h5>
-                            <p className="card-text">price: ${order.price}</p>
-                            <p className="card-text">{order.des.slice(0, 150)}</p>
-                            <button onClick={() => handleUpdate(order._id)} className="btn btn-primary mx-2">Aprove</button>
-                            <button onClick={() => handleManageDelete(order._id)} className="btn btn-danger">Delete</button>
+                        <div className="card-body text-center">
+                            <h3 className="card-title text-start">{order.service}</h3>
+                            <h6 className="card-title text-start">Status: {order.status}</h6>
+                            <h6 className="card-text text-start">Price: ${order.price}</h6>
+                            <p className="card-text text-start">{order.des.slice(0, 150)}</p>
+                            <button onClick={() => handleUpdate(order._id)} className="btn btn-primary mx-3">Approve</button>
+                            <button onClick={() => handleManageDelete(order._id)} className="btn btn-danger  mx-3">Delete</button>
                         </div>
                     </div>
                 </div>)
