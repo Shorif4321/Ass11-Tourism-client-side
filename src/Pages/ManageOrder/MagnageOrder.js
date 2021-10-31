@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory, useLocation } from 'react-router';
 import Loading from '../Loading/Loading';
 
 const MagnageOrder = () => {
-    const history = useHistory();
-    const location = useLocation();
-    const redirect_Uri = location.state?.from || '/myOrder';
-
     const [manageOrder, setManageOrder] = useState([])
+    const [reload, setReload] = useState(false)
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
@@ -18,7 +14,7 @@ const MagnageOrder = () => {
                 setLoading(false)
             });
 
-    }, [])
+    }, [reload])
 
     //Update Loading
     const handleUpdate = id => {
@@ -34,13 +30,13 @@ const MagnageOrder = () => {
             .then(data => {
                 if (data.modifiedCount > 0) {
                     alert('Successfully Approved')
-                    history.push(redirect_Uri)
-                    //window.history.go('0')
+                    setReload(true)
                 }
             })
     }
-
-
+    if (loading) {
+        return <Loading></Loading>
+    }
     //Console.log(manageOrder)
     const handleManageDelete = id => {
         const process = window.confirm('Are you want to DELETE?')
