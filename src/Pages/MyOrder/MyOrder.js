@@ -15,7 +15,6 @@ const MyOrder = () => {
                 setLoading(false)
             })
     }, [])
-    console.log(myOder)
 
     const hanldeOrderDelete = id => {
         const process = window.confirm('Are you want to cancel Your Order?')

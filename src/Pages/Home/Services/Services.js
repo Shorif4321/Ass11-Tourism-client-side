@@ -14,9 +14,11 @@ const Services = () => {
                 setLoading(false)
             })
     }, [])
+
     if (loading) {
         return <Loading></Loading>
     }
+
     return (
         <div>
             <h2 className="p-5 text-center">Our Special Services</h2>

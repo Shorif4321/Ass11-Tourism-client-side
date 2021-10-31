@@ -17,9 +17,25 @@ const MagnageOrder = () => {
 
     //Update Loading
     const handleUpdate = id => {
-
+        const url = `https://young-sands-62783.herokuapp.com/status/${id}`
+        fetch(url, {
+            method: 'PUT',
+            headers: {
+                'content-type': 'application/json',
+            },
+            body: JSON.stringify({ status: 'Approved' })
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.modifiedCount > 0) {
+                    alert('Your order is Approve successfully')
+                    window.history.go('0')
+                }
+            })
     }
-    //console.log(manageOrder)
+
+
+    //Console.log(manageOrder)
     const handleManageDelete = id => {
         const process = window.confirm('Are you want to DELETE?')
         if (process) {

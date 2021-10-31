@@ -18,7 +18,7 @@ const Header = () => {
                             <NavLink className="link-style" to="/home"> Home </NavLink>
                             {user?.email ? <NavLink className="link-style live" to="/myOrder">My Orders</NavLink> : <> </>}
                             {user?.email ? <NavLink className="link-style live" to="/addService">Add Service</NavLink> : <> </>}
-                            {user?.email ? <NavLink className="link-style live" to="/magnageOrder"> Manage All Order</NavLink> : <> </>}
+                            {user?.email ? <NavLink className="link-style live" to="/magnageOrder"> Manage Order</NavLink> : <> </>}
                             {user?.email ? <NavLink
                                 onClick={logOut} className="link-style login-2" to="/login">Log out</NavLink> :
                                 <NavLink className="link-style login" to="/login">Login</NavLink>
